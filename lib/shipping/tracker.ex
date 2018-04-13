@@ -8,6 +8,6 @@ defmodule Shipping.Tracker do
     driver_id: driver_id} = event) do
     load = Tracker.LoadStorage.fetch_by_id(load_id)
 
-    Tracker.DriverPositionStorage.update_position(driver_id, load_id)
+    Tracker.DriverPositionStorage.update_position(driver_id, load)
   end
 end

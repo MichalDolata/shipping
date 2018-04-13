@@ -2,6 +2,7 @@ defmodule Shipping.Tracker.LoadStorageTest do
   use ExUnit.Case, async: false
 
   alias Shipping.Tracker.LoadStorage
+  alias Shipping.Tracker.Load
 
   @event %Shipping.Shipper.Events.LoadCreated{
     car_type: :small,
@@ -17,7 +18,7 @@ defmodule Shipping.Tracker.LoadStorageTest do
   test "stores the load after receiving the event" do
     LoadStorage.store_load(@event)
 
-    assert %{uuid: uuid} = LoadStorage.fetch_by_id(@event.uuid)
+    assert %Load{uuid: uuid} = LoadStorage.fetch_by_id(@event.uuid)
     assert uuid = @event.uuid
   end
 end
