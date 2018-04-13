@@ -19,7 +19,7 @@ defmodule Shipping.Tracker.LoadStorageTest do
     LoadStorage.store_load(@event)
 
     assert %Load{uuid: uuid} = LoadStorage.fetch_by_id(@event.uuid)
-    assert uuid = @event.uuid
+    assert uuid == @event.uuid
   end
 
   test "stores driver id after assign" do
