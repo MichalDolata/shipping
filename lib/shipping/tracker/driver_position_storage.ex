@@ -18,4 +18,10 @@ defmodule Shipping.Tracker.DriverPositionStorage do
       state |> Map.fetch!(driver_id)
     end)
   end
+
+  def set_as_delivered(driver_id) do
+    Agent.update(__MODULE__, fn state ->
+      put_in(state, [driver_id, Access.key!(:delivered)], true)
+    end)
+  end
 end

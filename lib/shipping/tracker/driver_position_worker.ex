@@ -5,6 +5,7 @@ defmodule Shipping.Tracker.DriverPositionWorker do
     alias Shipping.Driver.Events.LoadDelivered
     alias Shipping.Shipper.Events.LoadCreated
 
+    alias Shipping.Tracker
     alias Shipping.Tracker.LoadStorage
 
     @name __MODULE__
@@ -23,18 +24,20 @@ defmodule Shipping.Tracker.DriverPositionWorker do
   
     def handle_info(%LoadCreated{} = event, state) do
       LoadStorage.store_load(event)
-      
+
       {:noreply, state}
     end
   
 
     def handle_info(%LoadPickedUp{} = event, state) do
-      
+      Tracker.handle_load_picked_up(event)
+
       {:noreply, state}
     end
 
     def handle_info(%LoadDelivered{} = event, state) do
-      
+      Tracker.handle_load_delivered(event)
+
       {:noreply, state}
     end
 end
