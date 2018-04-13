@@ -1,4 +1,19 @@
 defmodule Shipping.Tracker do
+  @moduledoc """
+  Tracker collects informations about loads locations by subscribing the `load_created`.
+  Then when receiving events from drivers about picking up or delivering loads, Tracker
+  saves locations of drivers. When location changes the `driver_position_changed` event
+  is broadcasted. 
+  
+  Stored location contains following informations:
+   - driver_id
+   - longitude
+   - latitude
+   - delivered status
+
+   Delivered status is set to false when driver is picking up load, and to true when it is delivered
+  """
+
   alias Shipping.Driver.Events.LoadPickedUp
   alias Shipping.Driver.Events.LoadDelivered
   alias Shipping.Tracker.Events.DriverPositionChanged
