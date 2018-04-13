@@ -46,4 +46,16 @@ defmodule Shipping.Tracker do
     
     PubSub.publish("driver_position_changed", position_changed)
   end
+
+  def get_all_drivers_positions() do
+    Tracker.DriverPositionStorage.get_all_positions()
+  end
+
+  def get_driver_position(driver_id) do
+    Tracker.DriverPositionStorage.get_position(driver_id)
+  end
+
+  def change_driver_position(driver_id, %Position{} = position) do
+    Tracker.DriverPositionStorage.update_position(driver_id, position)
+  end
 end
