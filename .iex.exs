@@ -31,5 +31,7 @@ load_request_event = %LoadRequestSent{
   timestamp: 10
 }
 
+LoadServer.create_load(command)
+
 
 :observer.start()
