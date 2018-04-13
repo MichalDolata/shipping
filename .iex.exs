@@ -1,5 +1,6 @@
 alias Shipping.Shipper.Commands.CreateLoad
 alias Shipping.Shipper
+alias Shipping.Shipper.Load
 alias Shipping.Shipper.LoadServer
 alias Shipping.Driver.Events.LoadRequestSent
 

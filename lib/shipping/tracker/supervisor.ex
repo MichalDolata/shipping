@@ -9,7 +9,9 @@ defmodule Shipping.Tracker.Supervisor do
 
   def init(_) do
     children = [
-      supervisor(Shipping.Tracker.DriverPositionWorker, [])
+      worker(Shipping.Tracker.DriverPositionWorker, []),
+      worker(Shipping.Tracker.LoadStorage, []),
+      worker(Shipping.Tracker.DriverPositionStorage, [])
     ]
 
     supervise(children, strategy: :one_for_one)
