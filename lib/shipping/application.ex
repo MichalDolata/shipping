@@ -7,7 +7,8 @@ defmodule Shipping.Application do
     Supervisor.start_link([
       supervisor(Shipping.Shipper.Supervisor, []),
       supervisor(Shipping.PubSub.Supervisor, []),
-      supervisor(Shipping.Driver.Supervisor, [])
+      supervisor(Shipping.Driver.Supervisor, []),
+      supervisor(Shipping.Tracker.Supervisor, []),
     ], strategy: :one_for_one, name: Shipping.Supervisor)
   end
 end
