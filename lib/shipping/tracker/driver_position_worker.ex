@@ -5,6 +5,8 @@ defmodule Shipping.Tracker.DriverPositionWorker do
     alias Shipping.Driver.Events.LoadDelivered
     alias Shipping.Shipper.Events.LoadCreated
 
+    alias Shipping.Tracker.LoadStorage
+
     @name __MODULE__
   
     def start_link() do
@@ -20,7 +22,8 @@ defmodule Shipping.Tracker.DriverPositionWorker do
     end
   
     def handle_info(%LoadCreated{} = event, state) do
-
+      LoadStorage.store_load(event)
+      
       {:noreply, state}
     end
   

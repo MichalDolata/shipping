@@ -17,7 +17,8 @@ defmodule Shipping.Tracker.LoadStorage do
       car_type: event.car_type,
       start_date_millis: event.start_date_millis,
       lat: event.lat,
-      lng: event.lng
+      lng: event.lng,
+      driver_id: nil
     }
 
     Agent.update(__MODULE__, fn state -> 
@@ -28,6 +29,13 @@ defmodule Shipping.Tracker.LoadStorage do
   def fetch_by_id(load_uuid) do
     Agent.get(__MODULE__, fn state ->
       state |> Map.fetch!(load_uuid)
+    end)
+  end
+
+  def assign_driver(load_uuid, driver_id) do
+    Agent.update(__MODULE__, fn state ->
+      load = Map.fetch!(state, load_uuid) |> Map.put(:driver_id, driver_id)
+      state |> Map.put(load_uuid, load)
     end)
   end
 end

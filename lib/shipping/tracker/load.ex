@@ -6,7 +6,8 @@ defmodule Shipping.Tracker.Load do
     :car_type,
     :start_date_millis,
     :lat,
-    :lng
+    :lng,
+    :driver_id
   ]
 
   @enforce_keys @fields
