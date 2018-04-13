@@ -4,6 +4,7 @@ defmodule Shipping.Tracker.DriverPositionWorker do
     alias Shipping.Driver.Events.LoadPickedUp
     alias Shipping.Driver.Events.LoadDelivered
     alias Shipping.Shipper.Events.LoadCreated
+    alias Shipping.Tracker.Events.DriverPositionChanged
 
     alias Shipping.Tracker
     alias Shipping.Tracker.LoadStorage
@@ -18,6 +19,7 @@ defmodule Shipping.Tracker.DriverPositionWorker do
       Shipping.PubSub.subscribe("load_created", self())
       Shipping.PubSub.subscribe("load_picked_up", self())
       Shipping.PubSub.subscribe("load_delivered", self())
+      Shipping.PubSub.subscribe("driver_position_changed", self())
 
       {:ok, []}
     end
@@ -37,6 +39,12 @@ defmodule Shipping.Tracker.DriverPositionWorker do
 
     def handle_info(%LoadDelivered{} = event, state) do
       Tracker.handle_load_delivered(event)
+
+      {:noreply, state}
+    end
+
+    def handle_info(%DriverPositionChanged{} = event, state) do
+      IO.inspect(event)
 
       {:noreply, state}
     end
